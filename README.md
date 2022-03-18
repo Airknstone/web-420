@@ -1,2 +1,6 @@
-# web-420
-RESTFul APIs
+# web-420 RESTful APIS
+
+## Contributors
+
+- Professor Krasso
+- Allan Trejo
