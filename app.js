@@ -14,11 +14,12 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/trejo-composer-routes.js');
 const logger = require('morgan');
+require('dotenv').config();
 /************* 1
 BEGIN DATABASE CON1NECTIONS 
 ***********************************/
 // Store database connection as a string
-const mongoDB = `mongodb+srv://web420_user:1234@ems.a7w7c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://${process.env.SECRET_KEY}@ems.a7w7c.mongodb.net/web420DB?retryWrites=true&w=majority`;
 //   Connect to url
 mongoose.connect(mongoDB);
 
@@ -31,7 +32,7 @@ var db = mongoose.connection;
 // On Error event
 db.on('error', console.error.bind(console, 'MongoDB connected error: '));
 
-// once opened / sucsessful
+// once opened / sucsessfull
 db.once('open', function () {
   console.log('Application connected to MongoDB Atlas Cluster');
 });
