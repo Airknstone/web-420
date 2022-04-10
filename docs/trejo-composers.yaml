@@ -49,7 +49,7 @@ paths:
     get:
       tags:
         - Composers
-      description: Reads, Retrieves all composers within database
+      description: Reads, Retrieves composers within database
       parameters:
         - name: id
           in: path
