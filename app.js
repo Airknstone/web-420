@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/trejo-composer-routes.js');
+const personAPI = require('./routes/trejo-person-routes');
 const logger = require('morgan');
 require('dotenv').config();
 /************* 1
@@ -32,7 +33,7 @@ var db = mongoose.connection;
 // On Error event
 db.on('error', console.error.bind(console, 'MongoDB connected error: '));
 
-// once opened / sucsessfull
+// once opened / successful
 db.once('open', function () {
   console.log('Application connected to MongoDB Atlas Cluster');
 });
@@ -71,6 +72,7 @@ const openapiSpecification = swaggerJsdoc(options);
 /* Configure express to use /api-docs route to serve swaggerJsdoc  */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 app.use('/api', composerAPI);
+app.use('/api', personAPI);
 /* Create server and serve application on port 3000 */
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Application started on port ' + app.get('port'));

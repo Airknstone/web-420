@@ -43,13 +43,13 @@ router.get('/composers', (req, res) => {
 });
 
 /**
- * createComposer
+ * getComposerById
  * @swagger
  * /api/composers/{id}:
  *   get:
  *      tags:
  *        - Composers
- *      description: Reads, Retrieves composers within database
+ *      description: reads and returns a composer document
  *      parameters:
  *        - name: id
  *          in: path

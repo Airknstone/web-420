@@ -1,0 +1,48 @@
+/api/composers:
+  post:
+    tags:
+      - Persons
+    description: Adds new person object to database
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            description: composer object
+            required:
+              - firstName
+              - lastName
+              - roles
+              - dependents
+              - birthDate
+          properties:
+            firstName:
+              description: first name of person
+              type: string
+            lastName:
+              description: last name of person
+              type: string
+            roles:
+              type: array
+              items:
+                type: object
+                properties:
+                  text: type:string
+            dependents:
+              type: array
+              items:
+                type: object
+                properties:
+                  firstName: type:string
+                  lastName:
+                    type: string
+              birthDate:
+                type: string
+    responses:
+      '200':
+        description: Array of person documents
+      '500':
+        description: Server Exception
+      '501':
+        description: MongoDB Exception
