@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 /* Schema model */
 const roleSchema = new Schema({
-  text: { type: String },
+  text: { type: String, required: true },
 });
 
 const dependantSchema = new Schema({

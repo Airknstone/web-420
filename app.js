@@ -14,6 +14,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/trejo-composer-routes.js');
 const personAPI = require('./routes/trejo-person-routes');
+const userAPI = require('./routes/trejo-session-routes');
 const logger = require('morgan');
 require('dotenv').config();
 /************* 1
@@ -73,6 +74,7 @@ const openapiSpecification = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 app.use('/api', composerAPI);
 app.use('/api', personAPI);
+app.use('/api', userAPI);
 /* Create server and serve application on port 3000 */
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Application started on port ' + app.get('port'));

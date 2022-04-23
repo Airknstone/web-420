@@ -121,7 +121,7 @@ router.post('/persons', function (req, res) {
         res.json(person);
       }
     });
-  } catch (e) {
+  } catch (error) {
     res.status(500).send('Server Exception');
     console.log(error);
   }
