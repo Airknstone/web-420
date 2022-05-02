@@ -15,13 +15,14 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/trejo-composer-routes.js');
 const personAPI = require('./routes/trejo-person-routes');
 const userAPI = require('./routes/trejo-session-routes');
+const customerAPI = require('./routes/trejo-node-shopper-routes');
 const logger = require('morgan');
 require('dotenv').config();
 /************* 1
 BEGIN DATABASE CON1NECTIONS 
 ***********************************/
 // Store database connection as a string
-const mongoDB = `mongodb+srv://${process.env.SECRET_KEY}@ems.a7w7c.mongodb.net/web420DB?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://web420_user:1234@ems.a7w7c.mongodb.net/web420DB?retryWrites=true&w=majority`;
 //   Connect to url
 mongoose.connect(mongoDB);
 
@@ -75,6 +76,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 app.use('/api', composerAPI);
 app.use('/api', personAPI);
 app.use('/api', userAPI);
+app.use('/api', customerAPI);
 /* Create server and serve application on port 3000 */
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Application started on port ' + app.get('port'));
