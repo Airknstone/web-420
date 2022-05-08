@@ -135,6 +135,106 @@ router.post('/composers', function (req, res) {
     console.log(error);
   }
 });
+
+/** updateComposerById
+ * @swagger
+ * /api/composers/{id}:
+ *   put:
+ *     tags:
+ *       - Composers
+ *     summary: Updates composer object by selecting Id
+ *     description: Updates first name and last name of a composer
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the composer to return
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       description: 2 params first name, last name required to post
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *          description: Array of composer documents
+ *       '401':
+ *          description: Invalid composerId
+ *       '500':
+ *          description: Server Exception
+ *       '501':
+ *          description: MongoDB Exception
+ */
+router.put('/composers/:id', function (req, res) {
+  try {
+    const id = req.params.id;
+    Composer.findOne({ _id: id }, function (err, composerById) {
+      if (composerById) {
+        res.status(200).send('Array of composer documents');
+        composerById.set({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+        });
+        composerById.save();
+      } else if (!composerById) {
+        res.status(401).send('Invalid composerId');
+      } else {
+        res.status(501).send({ error: `MongoDB Exception! ${error}` });
+      }
+    });
+  } catch (error) {
+    res.status(500).send({ error: `Server Exception! ${error}` });
+  }
+});
+
+/**
+ * deleteComposerById
+ * @swagger
+ * /api/composers/{id}:
+ *   delete:
+ *     tags:
+ *       - Composers
+ *     summary: Finds composer by Id and deletes entry
+ *     description: Deletes Composer Document
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: id parameter
+ *         schema:
+ *           type: string
+ *
+ *     responses:
+ *       '200':
+ *          description: Composer Document
+ *       '500':
+ *          description: Server Exception
+ *       '501':
+ *          description: MongoDB Exception
+ */
+router.delete('/composers/:id', function (req, res) {
+  try {
+    const id = req.params.id;
+    Composer.findByIdAndDelete({ _id: id }, function (err, composer) {
+      if (composer) {
+        res.status(200).send(`Deleted: ${composer}`);
+      } else {
+        res.status(501).send({ error: `MongoDB Exception! ${err}` });
+      }
+    });
+  } catch (error) {
+    res.status(500).send({ error: `Server Exception! ${error}` });
+  }
+});
+
 /* The module.exports is a special object which is included in every 
 JavaScript file in the Node.js application by default. The module is a 
 variable that represents the current module, and exports is an object that 
