@@ -13,11 +13,12 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/trejo-composer-routes.js');
-const personAPI = require('./routes/trejo-person-routes');
-const userAPI = require('./routes/trejo-session-routes');
-const customerAPI = require('./routes/trejo-node-shopper-routes');
+const personAPI = require('./routes/trejo-person-routes.js');
+const userAPI = require('./routes/trejo-session-routes.js');
+const customerAPI = require('./routes/trejo-node-shopper-routes.js');
+const teamAPI = require('./routes/trejo-teams-routes.js');
 const logger = require('morgan');
-require('dotenv').config();
+
 /************* 1
 BEGIN DATABASE CON1NECTIONS 
 ***********************************/
@@ -77,6 +78,7 @@ app.use('/api', composerAPI);
 app.use('/api', personAPI);
 app.use('/api', userAPI);
 app.use('/api', customerAPI);
+app.use('/api', teamAPI);
 /* Create server and serve application on port 3000 */
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Application started on port ' + app.get('port'));
