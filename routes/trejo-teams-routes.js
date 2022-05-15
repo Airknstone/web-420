@@ -107,7 +107,10 @@ router.post('/teams/:id/players', function (req, res) {
         };
         team.players.push(player);
         team.save();
-        res.status(200).send('Player document');
+        res.status(200).json({
+          message: 'Player Added Document',
+          player: player,
+        });
       } else if (!team) {
         res.status(401).send('Invalid teamId');
       } else {
